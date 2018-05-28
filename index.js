@@ -17,6 +17,7 @@ const jwtStrategy = require('./passport/jwt');
 
 const usersRouter = require('./users/routes');
 const authRouter = require('./auth/login');
+const questionsRouter = require('./questions/routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -45,7 +46,7 @@ app.use('/api', authRouter);
 const jwtAuth = passport.authenticate('jwt', {session: false, failWithError :true});
 
 // enter endpoints here
-
+app.use('/api', jwtAuth, questionsRouter);
 
 // Catch-all 404
 app.use(function (req, res, next) {

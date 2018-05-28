@@ -12,7 +12,6 @@ router.get('/users', (req, res) => {
     .then(results => {
       res.json(results);
     }).catch(err=> console.log(err));
-  
 });
 
 //register a user

@@ -14,7 +14,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  //, required: true ?
+  questionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true }
 });
 
 userSchema.methods.serialize = function() {
