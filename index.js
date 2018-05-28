@@ -1,7 +1,7 @@
 'use strict';
 
 require('dotenv').config();
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -18,7 +18,7 @@ const jwtStrategy = require('./passport/jwt');
 const usersRouter = require('./users/routes');
 
 const app = express();
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -42,6 +42,7 @@ app.use('/api', usersRouter);
 // Endpoints below this require a valid JWT
 const jwtAuth = passport.authenticate('jwt', { session: false, failWithError :true});
 
+// enter endpoints here
 
 
 // // Catch-all 404
