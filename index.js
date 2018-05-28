@@ -1,17 +1,24 @@
 'use strict';
 
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const passport = require('passport');
 
-const usersRouter = require('./users/routes');
+const localStrategy = require('./passport/local');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
 
+const jwtStrategy = require('./passport/jwt');
+
+const usersRouter = require('./users/routes');
+
 const app = express();
+app.use(bodyParser.json());
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -25,8 +32,17 @@ app.use(
   })
 );
 
+//Configure Passport to utilize the strategy
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
 // Mount router
 app.use('/api', usersRouter);
+
+// Endpoints below this require a valid JWT
+const jwtAuth = passport.authenticate('jwt', { session: false, failWithError :true});
+
+
 
 // // Catch-all 404
 app.use(function (req, res, next) {
