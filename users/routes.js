@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const jsonParser = bodyParser.json();
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const User = require('./models');
 
 // get all users from mLab to test endpoint
@@ -11,7 +11,7 @@ router.get('/users', (req, res) => {
   User.find()
     .then(results => {
       res.json(results);
-    }).catch(err=> console.log(err))
+    }).catch(err=> console.log(err));
   
 });
 
