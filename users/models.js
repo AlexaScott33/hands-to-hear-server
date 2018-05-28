@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+userSchema.methods.serialize = function() {
+  return {
+    username: this.username || '',
+    userId: this._id,
+    fullName: this.fullName || ''
+  };
+};
 
 userSchema.set('toObject', {
   transform: function (doc, ret) {

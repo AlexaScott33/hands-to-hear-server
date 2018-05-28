@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const jsonParser = bodyParser.json();
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const User = require('./models');
 
 // get all users from mLab to test endpoint
@@ -11,12 +11,12 @@ router.get('/users', (req, res) => {
   User.find()
     .then(results => {
       res.json(results);
-    }).catch(err=> console.log(err))
+    }).catch(err=> console.log(err));
   
 });
 
 //register a user
-router.post('/users', jsonParser, (req, res) => {
+router.post('/users', jsonParser, (req, res, next) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -108,6 +108,7 @@ router.post('/users', jsonParser, (req, res) => {
   return User.find({username})
     .count()
     .then(usersWithThatUsername => {
+      console.log('this is usersWithThatUsername:', usersWithThatUsername);
       if (usersWithThatUsername > 0) {
         return Promise.reject({
           code: 422,
@@ -119,6 +120,7 @@ router.post('/users', jsonParser, (req, res) => {
       return User.hashPassword(password);
     })
     .then(hashedPassword => {
+      console.log('this is hasedPassword', hashedPassword);
       return User.create({
         username,
         password: hashedPassword,
@@ -126,9 +128,11 @@ router.post('/users', jsonParser, (req, res) => {
       });
     })
     .then(user => {
+      console.log('this is user:', user);
       return res.status(201).json(user.serialize()).location(`/api/users/${user.id}`);
     })
     .catch(err => {
+      console.log('this is err:', err);
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
