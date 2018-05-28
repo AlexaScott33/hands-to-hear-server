@@ -129,7 +129,7 @@ router.post('/users', jsonParser, (req, res, next) => {
     })
     .then(user => {
       console.log('this is user:', user);
-      return res.status(201).json(user.serialize()).location(`/api/users/${user.id}`);
+      return res.status(201).location(`/api/users/${user.id}`).json(user.serialize());
     })
     .catch(err => {
       console.log('this is err:', err);
