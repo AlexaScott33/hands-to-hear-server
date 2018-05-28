@@ -15,6 +15,7 @@ router.get('/users', (req, res) => {
   
 });
 
+//register a user
 router.post('/users', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
@@ -134,9 +135,6 @@ router.post('/users', jsonParser, (req, res) => {
       res.status(500).json({code: 500, message: 'Internal server error'});
     });
 });
-
-
-module.exports = router;
 
 
 module.exports = router;
