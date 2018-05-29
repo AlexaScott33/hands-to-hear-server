@@ -46,8 +46,9 @@ router.get('/questions', (req, res, next) => {
 
 
 router.post('/questions', (req, res, next) => {
-  // console.log('req.bod=====', req.body);
-  const {userAnswer} = req.body;
+  console.log('req.bod=====', req.body);
+  const { userAnswer, correct, incorrect } = req.body;
+  console.log('incorrect!!!!', incorrect);
   const {username} = req.user;
   const newList = new LinkedList();
   const newQuestionArray=[];

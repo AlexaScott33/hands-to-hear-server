@@ -124,12 +124,7 @@ router.post('/users', jsonParser, (req, res, next) => {
       return User.create({
         username,
         password: hashedPassword,
-        fullName,
-        questions: {
-          question: QuestionList.head.value,
-          next: QuestionList.head.next
-        },
-        answered: false
+        fullName
       });
     })
     .then(user => {
