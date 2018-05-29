@@ -125,7 +125,10 @@ router.post('/users', jsonParser, (req, res, next) => {
         username,
         password: hashedPassword,
         fullName,
-        questions: QuestionList.head.value,
+        questions: {
+          question: QuestionList.head.value,
+          next: QuestionList.head.next
+        },
         answered: false
       });
     })
