@@ -3,6 +3,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const QuestionList = require('../linkedList/questionList');
+
 
 const userSchema = new mongoose.Schema({
   fullName: {type: String},
@@ -16,7 +18,12 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   // data(ques itself) - img & ans && next pointer
-  questions: { type: Array/Object },
+  questions: { type: Object, default: () => {
+    return {
+      question: QuestionList.head.value,
+      next: QuestionList.head.next
+    };
+  }},
   answered: {type: Boolean},
   correct: { type: Number, default: 0 },
   incorrect: { type: Number, default: 0 }

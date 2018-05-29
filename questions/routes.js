@@ -5,30 +5,32 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const Question = require('./models');
+const User = require('../users/models');
 
 // get one question from mLab to test endpoint
 // get one question *needs to be specific for user depending on where user left off*
 // user.findOne({username}) where {username} = req.user
 router.get('/protected', (req, res, next) => {
 
-  // const {username} = req.user;
+  const {username} = req.user;
 
-  // User.findOne({username})
-  // .then(user => {
-  //   --get user question from LL--
-  //   res.json({})
-  // })
-  // .catch(err => {
-  //   next(err);
-  // })
-
-
-  Question.find()
-    .then(results => {
-      res.json(results);
-    }).catch(err => {
+  User.findOne({username})
+    .then(user => {
+      console.log('this is the user', user);
+      let userQuestion = user.questions;
+      res.json(userQuestion);
+    })
+    .catch(err => {
       next(err);
     });
+
+
+  // Question.find()
+  //   .then(results => {
+  //     res.json(results);
+  //   }).catch(err => {
+  //     next(err);
+  //   });
 });
 
 // post endpoint for when users enter in an answer
