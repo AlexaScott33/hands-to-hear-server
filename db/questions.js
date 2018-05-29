@@ -1,7 +1,7 @@
 'use strict';
 
 
-const questions=
+const questions =
 [
   {
     'img': 'https://lingojam.com/img/ASL_signs/a.png',
@@ -17,4 +17,4 @@ const questions=
   }
 ];
 
-module.exports= questions;
+module.exports = questions;

@@ -5,6 +5,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const Question = require('./models');
+const LinkedList = require('../linkedList/linkedList');
 const User = require('../users/models');
 
 // get one question from mLab to test endpoint
@@ -12,13 +13,21 @@ const User = require('../users/models');
 // user.findOne({username}) where {username} = req.user
 router.get('/questions', (req, res, next) => {
 
+  // if quesHead and quesNext are empty then populate
   const {username} = req.user;
 
   User.findOne({username})
     .then(user => {
-      // console.log('this is the user', user);
-      let userQuestion = user.questionsObj;
-      return res.json(userQuestion);
+      if (!user.questionsObj.questionHead) {
+        const newList = new LinkedList();
+        user.questionsObj.questionHead = user.userQuestionList[0];
+        user.questionsObj.questionNext = user.userQuestionList[1];
+        console.log('this is firstQues', user.questionsObj.questionHead);
+        return res.json(user.questionsObj);
+      }
+      console.log('this is the user', user);
+      // let userQuestion = user.questionsObj;
+      return res.json(user);
     })
     .catch(err => {
       next(err);
@@ -42,8 +51,8 @@ router.post('/questions', (req, res, next) => {
 
   User.findOne({username})
     .then(user => {
-      console.log('this is the user returned', user.questionsObj.questions);
-      return res.json(user);
+      console.log('this is the user returned', user.questionsObj);
+      return res.json(user.questionsObj.questions);
     })
     .catch(err => {
       next(err);
