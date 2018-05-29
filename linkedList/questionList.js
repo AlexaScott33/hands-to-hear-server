@@ -26,9 +26,10 @@ function simple(list) {
   list.insertLast(firstQues);
   list.remove(firstQues);
   console.log('this is the new list after putting questoin to end of list', JSON.stringify(list, null, 2));
+  return list;
 }
 
 //display(QuestionList);
-simple(QuestionList);
+// simple(QuestionList);
   
 module.exports = QuestionList;
