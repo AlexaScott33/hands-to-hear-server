@@ -32,17 +32,18 @@ router.get('/questions', (req, res, next) => {
 // 2. implement algo so depending on if user got question right or wrong, put it back in list
 // 3. change user score 
 
-// 
-// need to finish -> hard to write without knowing LL or algo
+// update correct and incorrect for user
+// switching questions
+
+
 router.post('/questions', (req, res, next) => {
   const {userAnswer} = req.body;
   const {username} = req.user;
 
   User.findOne({username})
     .then(user => {
-      // condition
-      console.log('this is the user returned', user.questionObj);
-      return res.json(user.questionsObj);
+      console.log('this is the user returned', user.questionsObj.questions);
+      return res.json(user);
     })
     .catch(err => {
       next(err);
