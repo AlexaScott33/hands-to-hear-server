@@ -53,6 +53,7 @@ router.post('/questions', (req, res, next) => {
 
   User.findOne({username})
     .then(user => {
+      console.log('firssttt', user.questionObj);
       user.userQuestionList.map(question=>{
         newList.insertLast(question);
       });
@@ -61,13 +62,19 @@ router.post('/questions', (req, res, next) => {
       console.log('after simple', newList);
 
       let currentNode=newList.head;
-      while(currentNode.next!==null){
+      while(currentNode!==null){
         newQuestionArray.push(currentNode.value);
         currentNode= currentNode.next;
       }
       console.log(newQuestionArray);
 
+      user.userQuestionList=newQuestionArray;
+      console.log(user.userQuestionList);
 
+      user.questionsObj.questionHead = user.userQuestionList[0];
+      user.questionsObj.questionNext = user.userQuestionList[1];
+
+      console.log('finaallll', user.questionsObj);
       return res.json(user.questionsObj);
     })
     .catch(err => {
