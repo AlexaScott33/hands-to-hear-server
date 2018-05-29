@@ -131,7 +131,7 @@ function qList(){
 
   return QuestionList;
 }
-console.log(JSON.stringify(qList()));
+// console.log(JSON.stringify(qList()));
   
 function display(list) {
   

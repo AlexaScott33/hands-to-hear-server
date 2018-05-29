@@ -16,7 +16,7 @@ router.get('/protected', (req, res, next) => {
 
   User.findOne({username})
     .then(user => {
-      console.log('this is the user', user);
+      // console.log('this is the user', user);
       let userQuestion = user.questionsObj;
       return res.json(userQuestion);
     })
