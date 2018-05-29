@@ -7,6 +7,7 @@ const jsonParser = bodyParser.json();
 const Question = require('./models');
 const LinkedList = require('../linkedList/linkedList');
 const User = require('../users/models');
+const {simple}= require('../linkedList/questionList');
 
 // get one question from mLab to test endpoint
 // get one question *needs to be specific for user depending on where user left off*
@@ -19,15 +20,14 @@ router.get('/questions', (req, res, next) => {
   User.findOne({username})
     .then(user => {
       if (!user.questionsObj.questionHead) {
-        const newList = new LinkedList();
         user.questionsObj.questionHead = user.userQuestionList[0];
         user.questionsObj.questionNext = user.userQuestionList[1];
         console.log('this is firstQues', user.questionsObj.questionHead);
         return res.json(user.questionsObj);
       }
-      console.log('this is the user', user);
-      // let userQuestion = user.questionsObj;
-      return res.json(user);
+      else{
+        return res.json(user.questionsObj);
+      }
     })
     .catch(err => {
       next(err);
@@ -48,11 +48,17 @@ router.get('/questions', (req, res, next) => {
 router.post('/questions', (req, res, next) => {
   const {userAnswer} = req.body;
   const {username} = req.user;
-
+  const newList = new LinkedList();
   User.findOne({username})
     .then(user => {
-      console.log('this is the user returned', user.questionsObj);
-      return res.json(user.questionsObj.questions);
+      user.userQuestionList.map(question=>{
+        newList.insertLast(question);
+      });
+      console.log(newList);
+      simple(newList);
+      console.log('after simple', newList);
+
+      return res.json(user.questionsObj);
     })
     .catch(err => {
       next(err);

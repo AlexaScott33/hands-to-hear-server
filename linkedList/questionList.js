@@ -10,26 +10,21 @@ questions.map(question => {
 console.log(JSON.stringify(QuestionList, null, 2));
 
 function displayFirstQuestion(list) {
-  //console.log('!!!!!!!!!!!!!!!!!!', JSON.stringify(list.head.value));
-  console.log(list.head.value);
   return list.head.values;
 }
 
 function simple(list) {
-  console.log('old list', JSON.stringify(list, null, 2));
   displayFirstQuestion(list);
 
   const firstQues = list.head.value;
-  console.log('this is the first question:', firstQues);
 
   
   list.insertLast(firstQues);
   list.remove(firstQues);
-  console.log('this is the new list after putting questoin to end of list', JSON.stringify(list, null, 2));
   return list;
 }
 
 //display(QuestionList);
 // simple(QuestionList);
   
-module.exports = QuestionList;
+module.exports = {QuestionList, simple};
