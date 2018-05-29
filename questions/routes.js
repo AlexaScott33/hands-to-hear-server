@@ -47,8 +47,7 @@ router.get('/questions', (req, res, next) => {
 
 router.post('/questions', (req, res, next) => {
   console.log('req.bod=====', req.body);
-  const { userAnswer, correct, incorrect } = req.body;
-  console.log('incorrect!!!!', incorrect);
+  const { userAnswer } = req.body;
   const {username} = req.user;
   const newList = new LinkedList();
   const newQuestionArray=[];
@@ -87,16 +86,19 @@ router.post('/questions', (req, res, next) => {
       next(err);
     });
 
-  // User.findOne({username})
-  //   .then(user => {
-  //     console.log('check the actual answer', user.questions.question.answer);
-  //     // need condition to check stored answer with user answer
-  //     // if(user.questions.question.answer) {
-  //     //   res.json({})
-  //     // }
-  //     return res.json(user);
-  //   });
-// ...
+  //TODO:
+  // const {correct, incorrect} = req.body
+  // if(user.questionObj.correct !== correct){
+  //   //means incorrect, please change order of linkedlist/array to work
+  //algorithm B that changes so incorrect question appears earlier
+  //put post in here and just change simple to algorithm b
+  // }
+  // else if (correct===user.user.questionObj.correct){
+  //   //means correct, keep going in order
+  // algorithm A where things progress at the correct pace
+  //put post in here and just change simple to algorithm a
+
+// }
   
 });
 
