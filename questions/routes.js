@@ -49,6 +49,8 @@ router.post('/questions', (req, res, next) => {
   const {userAnswer} = req.body;
   const {username} = req.user;
   const newList = new LinkedList();
+  const newQuestionArray=[];
+
   User.findOne({username})
     .then(user => {
       user.userQuestionList.map(question=>{
@@ -57,6 +59,14 @@ router.post('/questions', (req, res, next) => {
       console.log(newList);
       simple(newList);
       console.log('after simple', newList);
+
+      let currentNode=newList.head;
+      while(currentNode.next!==null){
+        newQuestionArray.push(currentNode.value);
+        currentNode= currentNode.next;
+      }
+      console.log(newQuestionArray);
+
 
       return res.json(user.questionsObj);
     })
