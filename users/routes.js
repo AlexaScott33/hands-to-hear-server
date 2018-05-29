@@ -5,6 +5,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const User = require('./models');
+const QuestionList=require('../linkedList/questionList');
 
 // get all users from mLab to test endpoint
 router.get('/users', (req, res) => {
@@ -123,7 +124,9 @@ router.post('/users', jsonParser, (req, res, next) => {
       return User.create({
         username,
         password: hashedPassword,
-        fullName
+        fullName,
+        questions: QuestionList.head.value,
+        answered: false
       });
     })
     .then(user => {

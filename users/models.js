@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   // data(ques itself) - img & ans && next pointer
   questions: { type: Array/Object },
+  answered: {type: Boolean},
   correct: { type: Number, default: 0 },
   incorrect: { type: Number, default: 0 }
 });

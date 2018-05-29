@@ -1,4 +1,5 @@
 'use strict';
+const questions= require('../db/questions');
 
 const _Node = require('./node');
 
@@ -121,6 +122,16 @@ class LinkedList {
   }
   
 }
+
+function qList(){
+  const QuestionList= new LinkedList();
+  questions.map(question=>{
+    QuestionList.insertFirst(question);
+  });
+
+  return QuestionList;
+}
+console.log(JSON.stringify(qList()));
   
 function display(list) {
   
@@ -271,15 +282,3 @@ function middleOfList2(list) {
 }
 
 module.exports = LinkedList;
-
-function main() {
-  const LL = new LinkedList();
-  LL.insertFirst('foo');
-  LL.insertLast('bar');
-  LL.insertLast('woo');
-  LL.insertLast('haa');
-
-  console.log(JSON.stringify(LL));
-}
-
-main();
