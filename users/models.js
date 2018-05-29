@@ -15,10 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // might have to change to questions: { type: Array/Object}
-  questionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true }
-  // score: { type: Number, default: 0 }
-  // userAttempts: { type: Number, default: 0 }
+  // data(ques itself) - img & ans && next pointer
+  questions: { type: Array/Object },
+  correct: { type: Number, default: 0 },
+  incorrect: { type: Number, default: 0 }
 });
 
 userSchema.methods.serialize = function() {
