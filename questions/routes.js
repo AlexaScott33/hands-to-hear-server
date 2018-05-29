@@ -46,6 +46,7 @@ router.get('/questions', (req, res, next) => {
 
 
 router.post('/questions', (req, res, next) => {
+  // console.log('req.bod=====', req.body);
   const {userAnswer} = req.body;
   const {username} = req.user;
   const newList = new LinkedList();
@@ -53,24 +54,28 @@ router.post('/questions', (req, res, next) => {
 
   User.findOne({username})
     .then(user => {
-      console.log('firssttt', user.questionObj);
+      console.log('firssttt', user);
       user.userQuestionList.map(question=>{
         newList.insertLast(question);
       });
-      console.log(newList);
+      // console.log(newList);
       simple(newList);
-      console.log('after simple', newList);
+      // console.log('after simple', newList);
 
       let currentNode=newList.head;
       while(currentNode!==null){
         newQuestionArray.push(currentNode.value);
         currentNode= currentNode.next;
       }
-      console.log(newQuestionArray);
+      // console.log(newQuestionArray);
 
       user.userQuestionList=newQuestionArray;
       console.log(user.userQuestionList);
 
+      User.updateOne({username}, {$set: {userQuestionList: user.userQuestionList}})
+        .then(result => {
+          console.log('updating list');
+        });
       user.questionsObj.questionHead = user.userQuestionList[0];
       user.questionsObj.questionNext = user.userQuestionList[1];
 

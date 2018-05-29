@@ -7,7 +7,7 @@ questions.map(question => {
   QuestionList.insertLast(question);
 });
 
-console.log(JSON.stringify(QuestionList, null, 2));
+// console.log(JSON.stringify(QuestionList, null, 2));
 
 function displayFirstQuestion(list) {
   return list.head.values;
