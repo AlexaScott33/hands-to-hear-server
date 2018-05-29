@@ -15,8 +15,8 @@ router.get('/protected', (req, res, next) => {
 
   // User.findOne({username})
   // .then(user => {
-  //   let userQuestion = user.questions.head.value;
-  //   res.json({'question': userQuestion.question})
+  //   --get user question from LL--
+  //   res.json({})
   // })
   // .catch(err => {
   //   next(err);
@@ -47,10 +47,11 @@ router.get('/protected', (req, res, next) => {
 //   User.findOne({username})
 //     .then(user => {
 //       // need condition to check stored answer with user answer
-//       if(user.questions.head.value.answer.toLowerCase() !== userAnswer.toLowerCase()) {
+//       if() {
 //         res.json({})
 //       }
 //     })
+// ...
   
 // });
 
