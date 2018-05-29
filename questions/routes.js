@@ -18,7 +18,7 @@ router.get('/protected', (req, res, next) => {
     .then(user => {
       console.log('this is the user', user);
       let userQuestion = user.questionsObj;
-      res.json(userQuestion);
+      return res.json(userQuestion);
     })
     .catch(err => {
       next(err);
