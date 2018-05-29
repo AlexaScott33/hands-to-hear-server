@@ -18,15 +18,17 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   // data(ques itself) - img & ans && next pointer
-  questions: { type: Object, default: () => {
-    return {
-      question: QuestionList.head.value,
-      next: QuestionList.head.next
-    };
-  }},
-  answered: {type: Boolean},
-  correct: { type: Number, default: 0 },
-  incorrect: { type: Number, default: 0 }
+  questionsObj: {
+    questions: { type: Object, default: () => {
+      return {
+        question: QuestionList.head.value,
+        next: QuestionList.head.next
+      };
+    }},
+    answered: { type: Boolean },
+    correct: { type: Number, default: 0 },
+    incorrect: { type: Number, default: 0 }
+  }
 });
 
 userSchema.methods.serialize = function() {

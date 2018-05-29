@@ -17,20 +17,13 @@ router.get('/protected', (req, res, next) => {
   User.findOne({username})
     .then(user => {
       console.log('this is the user', user);
-      let userQuestion = user.questions;
+      let userQuestion = user.questionsObj;
       res.json(userQuestion);
     })
     .catch(err => {
       next(err);
     });
 
-
-  // Question.find()
-  //   .then(results => {
-  //     res.json(results);
-  //   }).catch(err => {
-  //     next(err);
-  //   });
 });
 
 // post endpoint for when users enter in an answer
@@ -39,23 +32,32 @@ router.get('/protected', (req, res, next) => {
 // 2. implement algo so depending on if user got question right or wrong, put it back in list
 // 3. change user score 
 
+// 
 // need to finish -> hard to write without knowing LL or algo
-// router.post('/protected', (req, res, next) => {
-//   console.log('req.body:', req.body);
-//   const userAnswer = req.body;
-//   console.log('req/user:', req.user);
-//   const username = req.user;
+router.post('/protected', (req, res, next) => {
+  console.log('req.body:', req.body);
+  const userAnswer = req.body;
+  console.log('req.user:', req.user);
+  const username = req.user;
 
-//   User.findOne({username})
-//     .then(user => {
-//       // need condition to check stored answer with user answer
-//       if() {
-//         res.json({})
-//       }
-//     })
+  User.findOne({username})
+    .then(user => {
+      // condition
+      console.log('this is the user returned', user);
+    });
+
+  // User.findOne({username})
+  //   .then(user => {
+  //     console.log('check the actual answer', user.questions.question.answer);
+  //     // need condition to check stored answer with user answer
+  //     // if(user.questions.question.answer) {
+  //     //   res.json({})
+  //     // }
+  //     return res.json(user);
+  //   });
 // ...
   
-// });
+});
 
 
 module.exports = router;
