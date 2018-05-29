@@ -10,7 +10,7 @@ const User = require('../users/models');
 // get one question from mLab to test endpoint
 // get one question *needs to be specific for user depending on where user left off*
 // user.findOne({username}) where {username} = req.user
-router.get('/protected', (req, res, next) => {
+router.get('/questions', (req, res, next) => {
 
   const {username} = req.user;
 
@@ -34,16 +34,18 @@ router.get('/protected', (req, res, next) => {
 
 // 
 // need to finish -> hard to write without knowing LL or algo
-router.post('/protected', (req, res, next) => {
-  console.log('req.body:', req.body);
-  const userAnswer = req.body;
-  console.log('req.user:', req.user);
-  const username = req.user;
+router.post('/questions', (req, res, next) => {
+  const {userAnswer} = req.body;
+  const {username} = req.user;
 
   User.findOne({username})
     .then(user => {
       // condition
-      console.log('this is the user returned', user);
+      console.log('this is the user returned', user.questionObj);
+      return res.json(user.questionsObj);
+    })
+    .catch(err => {
+      next(err);
     });
 
   // User.findOne({username})
