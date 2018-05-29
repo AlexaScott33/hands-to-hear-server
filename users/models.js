@@ -15,8 +15,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  //, required: true ?
   questionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true }
+  // score: { type: Number, default: 0 }
+  // userAttempts: { type: Number, default: 0 }
 });
 
 userSchema.methods.serialize = function() {

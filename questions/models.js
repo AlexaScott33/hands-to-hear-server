@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
-  img: { type: String }
+  img: { type: String, required: true },
+  answer: { type: String, required: true }
 });
 
 
