@@ -40,38 +40,43 @@ router.get('/questions', (req, res, next) => {
 
 router.post('/questions', (req, res, next) => {
   console.log('req.bod=====', req.body);
-  const { correct, incorrect } = req.body;
-  console.log(correct);
-
+  const { answer } = req.body;
+  console.log(answer);
+  
   //NOTE FOR START OF DAY:
-  //Need to figure out why correct and incorrect are not coming back in body (req.body = an empty object right now)
-  //then the rest of logic below will work once we have those values
-  //after logic working: 
-  //then add correct and incorrect to updated User in $set method of 
-  //to keep track of counts on server and client
+  //Need to figure out why not getting anything off req body
 
   const {username} = req.user;
-  const newList = new LinkedList();
-  const newQuestionArray=[];
+  
   
   User.findOne({username})
     .then(user => {
-      console.log('firssttt', user);
+      const newList = new LinkedList();
+      const newQuestionArray=[];
+      // console.log('firssttt', user);
+      
+      //insert all the array into the new linkedlist
       user.userQuestionList.map(question=>{
         newList.insertLast(question);
       });
-      if(correct === user.questionsObj.correct){
+
+      //don't trust users to have answers without whitespace//same case:
+      const userAnswer=answer.toLowerCase().trim();
+      const correctAnswer=newList.head.value.answer.toLowerCase().trim();
+
+      //check if correct or incorrect:
+      if(userAnswer !== correctAnswer){
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead=newList.head.value;
-        simple(newList);
         newList.insertAt(newListHead, 3);
       }
-      else if(correct !== user.questionsObj.correct){
+      else if(userAnswer === correctAnswer){
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
         const newListHead=newList.head.value;
-        simple(newList);
         newList.insertLast(newListHead);
       }
+      //adding to head question to the last spot and then deleteing the head
+      simple(newList);
       console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
       let currentNode=newList.head;
@@ -81,7 +86,7 @@ router.post('/questions', (req, res, next) => {
       }
   
       user.userQuestionList= newQuestionArray;
-      console.log("ARRAAAYYY",  newQuestionArray);
+      // console.log("ARRAAAYYY",  newQuestionArray);
 
       User.updateOne({username}, {$set: {userQuestionList: newQuestionArray}})
         .then(result => {
@@ -90,7 +95,7 @@ router.post('/questions', (req, res, next) => {
       user.questionsObj.questionHead = user.userQuestionList[0];
       user.questionsObj.questionNext = user.userQuestionList[1];
   
-      console.log('finaallll', user.questionsObj);
+      // console.log('finaallll', user.questionsObj);
       return res.json(user.questionsObj);
     })
     .catch(err => {
