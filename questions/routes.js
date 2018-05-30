@@ -66,19 +66,24 @@ router.post('/questions', (req, res, next) => {
       //don't trust users to have answers without whitespace//same case:
       const userAnswer = answer.toLowerCase().trim();
       const correctAnswer = newList.head.value.answer.toLowerCase().trim();
-       let correctCount;
-       let incorrectCount;
-       console.log('!!!!!', user.questionsObj.correct);
+      
+      let correctCount = user.questionsObj.correct;
+      let incorrectCount = user.questionsObj.incorrect;
+      console.log('!!!!!!!!', user.questionsObj.incorrect);
+
+      // console.log('!!!!!', user.questionsObj.correct);
       //check if correct or incorrect:
       if (userAnswer !== correctAnswer){
-        correctCount = user.questionsObj.correct + 1;
+        incorrectCount = user.questionsObj.incorrect + 1;
+        // correctCount = user.questionsObj.correct;
         console.log('xxxxxxxxxx', correctCount);
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead=newList.head.value;
         newList.insertAt(newListHead, 3);
       }
       else if (userAnswer === correctAnswer){
-        incorrectCount = user.questionsObj.incorrect + 1;
+        correctCount = user.questionsObj.correct + 1;
+        // incorrectCount = user.questionsObj.incorrect;
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
         const newListHead=newList.head.value;
         newList.insertLast(newListHead);
@@ -101,7 +106,15 @@ router.post('/questions', (req, res, next) => {
       user.questionsObj.incorrect = incorrectCount;
       // console.log("ARRAAAYYY",  newQuestionArray);
 
-      User.updateOne({ username }, {$set: {userQuestionList: newQuestionArray}})
+      User.updateOne({ username }, {$set: {
+        userQuestionList: newQuestionArray,
+        questionsObj: {
+          questionHead: user.questionsObj.questionHead,
+          correct: correctCount,
+          incorrect: incorrectCount 
+        }
+      }
+      })
         .then(result => {
           console.log('updating list');
         });

@@ -21,8 +21,6 @@ const userSchema = new mongoose.Schema({
   userQuestionList: { type: Object, default: questions },
   questionsObj: {
     questionHead: { type: Object, default: null },
-    // questionNext: { type: Object, default: null },
-    // answered: { type: Boolean },
     correct: { type: Number, default: 0 },
     incorrect: { type: Number, default: 0 }
   }
