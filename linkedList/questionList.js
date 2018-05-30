@@ -23,8 +23,8 @@ function simple(list) {
   displayFirstQuestion(list);
 
   const firstQues = list.head.value;
-
-  list.insertLast(firstQues);
+  //NOTE FOR START: had to comment this out so it didn't add it twice to the queue(linkedlist)
+  // list.insertLast(firstQues);
   list.remove(firstQues);
   return list;
 }

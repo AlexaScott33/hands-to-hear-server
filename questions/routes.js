@@ -22,6 +22,8 @@ router.get('/questions', (req, res, next) => {
       if (!user.questionsObj.questionHead) {
         user.questionsObj.questionHead = user.userQuestionList[0];
         user.questionsObj.questionNext = user.userQuestionList[1];
+        user.questionsObj.correct=0;
+        user.questionsObj.incorrect=0;
         console.log('this is firstQues', user.questionsObj.questionHead);
         return res.json(user.questionsObj);
       }
@@ -35,17 +37,19 @@ router.get('/questions', (req, res, next) => {
 
 });
 
-// post endpoint for when users enter in an answer
-// 1. need to check userAnswer with answer stored in db 
-// -> give message and correct answer if wrong -> give message 'Correct' if right 
-// 2. implement algo so depending on if user got question right or wrong, put it back in list
-// 3. change user score 
 
-// update correct and incorrect for user
-// switching questions
 router.post('/questions', (req, res, next) => {
-  // console.log('req.bod=====', req.body);
+  console.log('req.bod=====', req.body);
   const { correct, incorrect } = req.body;
+  console.log(correct);
+
+  //NOTE FOR START OF DAY:
+  //Need to figure out why correct and incorrect are not coming back in body (req.body = an empty object right now)
+  //then the rest of logic below will work once we have those values
+  //after logic working: 
+  //then add correct and incorrect to updated User in $set method of 
+  //to keep track of counts on server and client
+
   const {username} = req.user;
   const newList = new LinkedList();
   const newQuestionArray=[];
@@ -56,16 +60,18 @@ router.post('/questions', (req, res, next) => {
       user.userQuestionList.map(question=>{
         newList.insertLast(question);
       });
-      // simple(newList);
       if(correct === user.questionsObj.correct){
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
-        newList.insertAt(newList.head.value, 3);
+        const newListHead=newList.head.value;
+        simple(newList);
+        newList.insertAt(newListHead, 3);
       }
       else if(correct !== user.questionsObj.correct){
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
-        newList.insertLast(newList.head.value);
+        const newListHead=newList.head.value;
+        simple(newList);
+        newList.insertLast(newListHead);
       }
-      simple(newList);
       console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
       let currentNode=newList.head;
@@ -74,10 +80,10 @@ router.post('/questions', (req, res, next) => {
         currentNode= currentNode.next;
       }
   
-      user.userQuestionList=newQuestionArray;
-      // console.log(user.userQuestionList);
+      // user.userQuestionList=newQuestionArray;
+      // // console.log("ARRRAAAYYYY", newQuestionArray);
   
-      User.updateOne({username}, {$set: {userQuestionList: user.userQuestionList}})
+      User.updateOne({username}, {$set: {userQuestionList: newQuestionArray}})
         .then(result => {
           console.log('updating list');
         });
