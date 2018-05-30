@@ -70,6 +70,8 @@ router.post('/questions', (req, res, next) => {
         incorrectCount = user.questionsObj.incorrect + 1;
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead = newList.head.value;
+        // condition -> with memValue
+        // insertAt memVal of question
         newList.insertAt(newListHead, 3);
       }
       else if (userAnswer === correctAnswer){
@@ -78,6 +80,7 @@ router.post('/questions', (req, res, next) => {
         const newListHead = newList.head.value;
         newList.insertLast(newListHead);
       }
+      // check condition to see if memVal reaches node with next point -> null --> insert at end
 
       //adding to head question to the last spot and then deleteing the head
       simple(newList);
