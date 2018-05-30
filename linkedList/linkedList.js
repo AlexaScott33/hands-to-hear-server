@@ -281,4 +281,4 @@ function middleOfList2(list) {
   return currNode.value;
 }
 
-module.exports = LinkedList;
+module.exports = { LinkedList, size };

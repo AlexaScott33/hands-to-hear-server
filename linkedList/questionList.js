@@ -1,6 +1,6 @@
 'use strict';
 
-const LinkedList = require('./linkedList');
+const { LinkedList }= require('./linkedList');
 const questions= require('../db/questions');
 
 
@@ -81,4 +81,4 @@ function better(list, answer) {
 //   // 
 // }
   
-module.exports = {QuestionList, simple};
+module.exports = { QuestionList, simple };
