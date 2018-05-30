@@ -1,7 +1,7 @@
 'use strict';
 
-const { LinkedList }= require('./linkedList');
-const questions= require('../db/questions');
+const { LinkedList } = require('./linkedList');
+const questions = require('../db/questions');
 
 
 
@@ -19,7 +19,7 @@ function displayFirstQuestion(list) {
 
 ///////////// SIMPLE ALGORITHM /////////////
 
-function simple(list) {
+function displayAndRemove(list) {
   displayFirstQuestion(list);
 
   const firstQues = list.head.value;
@@ -81,4 +81,4 @@ function better(list, answer) {
 //   // 
 // }
   
-module.exports = { QuestionList, simple };
+module.exports = { QuestionList, displayAndRemove };

@@ -63,10 +63,10 @@ router.post('/questions', (req, res, next) => {
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
 
         
-          const newListHead = newList.head.value;
-          // condition -> with memValue
-          // insertAt memVal of question
-          newList.insertAt(newListHead, 3);
+        const newListHead = newList.head.value;
+        // condition -> with memValue
+        // insertAt memVal of question
+        newList.insertAt(newListHead, 3);
         
         
       }
