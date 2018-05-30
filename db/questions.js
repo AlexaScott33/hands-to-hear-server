@@ -34,7 +34,7 @@ const questions =
     'memVal': '1'
   },
   {
-    'img': 'http://www.clker.com/cliparts/f/5/5/b/1247117102653753435Sign_language_G.svg.med.pnghttp://cliparts.co/cliparts/ki8/oop/ki8oopE5T.png',
+    'img': 'https://www.clker.com/cliparts/f/5/5/b/1247117102653753435Sign_language_G.svg.med.png',
     'answer': 'g',
     'memVal': '1'
   },
