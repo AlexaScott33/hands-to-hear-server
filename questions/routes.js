@@ -46,21 +46,36 @@ router.get('/questions', (req, res, next) => {
 
 
 router.post('/questions', (req, res, next) => {
-  console.log('req.bod=====', req.body);
-  const { userAnswer } = req.body;
-  const {username} = req.user;
+  // console.log('req.bod=====', req.body);
+  const { answer, correct, incorrect } = req.body;
+  // console.log('userAnswer', answer);
+  const { username } = req.user;
   const newList = new LinkedList();
   const newQuestionArray=[];
 
   User.findOne({username})
     .then(user => {
-      console.log('firssttt', user);
       user.userQuestionList.map(question=>{
         newList.insertLast(question);
       });
-      // console.log(newList);
+
+      console.log('this is the list before the user answers the question', JSON.stringify(newList, null, 2));
+      console.log('>>this is the question taken form newList:', JSON.stringify(newList.head.value, null, 2));
+      console.log('>>this is the answer to the question taken from newList:', newList.head.value.answer);
+      console.log('>>this is what the user answer is:', answer);
+
+      if (newList.head.value.answer.toLowerCase() !== answer.toLowerCase()) {
+        console.log('!!!WRONG. the answer was not correct so lets move it back one');
+        newList.insertAt(newList.head.value, 3);
+
+      } 
+      else if (newList.head.value.answer.toLowerCase() === answer.toLowerCase()) {
+        console.log('!!!NICE. the answer was correct so lets move it to back of list');
+        newList.insertLast(newList.head.value);
+      }
+
       simple(newList);
-      // console.log('after simple', newList);
+      console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
 
       let currentNode=newList.head;
       while(currentNode!==null){
@@ -70,7 +85,7 @@ router.post('/questions', (req, res, next) => {
       // console.log(newQuestionArray);
 
       user.userQuestionList=newQuestionArray;
-      console.log(user.userQuestionList);
+      // console.log(user.userQuestionList);
 
       User.updateOne({username}, {$set: {userQuestionList: user.userQuestionList}})
         .then(result => {
@@ -79,7 +94,7 @@ router.post('/questions', (req, res, next) => {
       user.questionsObj.questionHead = user.userQuestionList[0];
       user.questionsObj.questionNext = user.userQuestionList[1];
 
-      console.log('finaallll', user.questionsObj);
+      // console.log('finaallll', user.questionsObj);
       return res.json(user.questionsObj);
     })
     .catch(err => {

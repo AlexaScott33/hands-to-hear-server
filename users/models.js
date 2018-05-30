@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // data(ques itself) - img & ans && next pointer
   userQuestionList: { type: Object, default: questions },
   questionsObj: {
     questionHead: { type: Object, default: null },
