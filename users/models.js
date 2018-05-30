@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const QuestionList = require('../linkedList/questionList');
 const questions = require('../db/questions');
 
 
