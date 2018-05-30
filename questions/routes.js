@@ -80,6 +80,7 @@ router.post('/questions', (req, res, next) => {
         currentNode= currentNode.next;
       }
   
+      user.userQuestionList= newQuestionArray;
       console.log("ARRAAAYYY",  newQuestionArray);
 
       User.updateOne({username}, {$set: {userQuestionList: newQuestionArray}})
