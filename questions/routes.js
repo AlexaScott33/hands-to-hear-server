@@ -10,9 +10,9 @@ const { LinkedList, size } = require('../linkedList/linkedList');
 const { displayAndRemove }= require('../linkedList/questionList');
 
 router.get('/questions', (req, res, next) => {
-  const {username} = req.user;
+  const { username } = req.user;
 
-  User.findOne({username})
+  User.findOne({ username })
     .then(user => {
       if (!user.questionsObj.questionHead) {
         user.questionsObj.questionHead = user.userQuestionList[0];

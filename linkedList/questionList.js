@@ -13,7 +13,7 @@ questions.map(question => {
 // console.log(JSON.stringify(QuestionList, null, 2));
 
 function displayFirstQuestion(list) {
-  console.log(list.head.value);
+  // console.log(list.head.value);
   return list.head.value;
 }
 

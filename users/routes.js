@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const User = require('./models');
-const QuestionList=require('../linkedList/questionList');
 
-// get all users from mLab to test endpoint
+const User = require('./models');
+
+
 router.get('/users', (req, res) => {
   User.find()
     .then(results => {
@@ -108,7 +108,6 @@ router.post('/users', jsonParser, (req, res, next) => {
   return User.find({username})
     .count()
     .then(usersWithThatUsername => {
-      console.log('this is usersWithThatUsername:', usersWithThatUsername);
       if (usersWithThatUsername > 0) {
         return Promise.reject({
           code: 422,
@@ -120,7 +119,6 @@ router.post('/users', jsonParser, (req, res, next) => {
       return User.hashPassword(password);
     })
     .then(hashedPassword => {
-      console.log('this is hasedPassword', hashedPassword);
       return User.create({
         username,
         password: hashedPassword,
@@ -128,11 +126,9 @@ router.post('/users', jsonParser, (req, res, next) => {
       });
     })
     .then(user => {
-      console.log('this is user:', user);
       return res.status(201).location(`/api/users/${user.id}`).json(user.serialize());
     })
     .catch(err => {
-      console.log('this is err:', err);
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }

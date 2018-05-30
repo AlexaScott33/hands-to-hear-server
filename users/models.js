@@ -7,7 +7,7 @@ const questions = require('../db/questions');
 
 
 const userSchema = new mongoose.Schema({
-  fullName: {type: String},
+  fullName: { type: String },
   username: {
     type: String,
     required: true,

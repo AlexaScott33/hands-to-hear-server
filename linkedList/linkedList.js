@@ -158,7 +158,6 @@ function size(list) {
     currNode = currNode.next;
     num++;
   }
-  console.log('The size of the linked list is ', num);
   return num;
 }
   
