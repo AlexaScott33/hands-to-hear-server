@@ -50,9 +50,11 @@ router.post('/questions', (req, res, next) => {
   
   User.findOne({ username })
     .then(user => {
+      console.log('this is the user', user);
       const newList = new LinkedList();
       const newQuestionArray = [];
       // console.log('firssttt', user);
+      
       
       //insert all the array into the new linkedlist
       user.userQuestionList.map(question => {
@@ -86,7 +88,7 @@ router.post('/questions', (req, res, next) => {
         currentNode= currentNode.next;
       }
   
-      user.userQuestionList= newQuestionArray;
+      user.userQuestionList = newQuestionArray;
       // console.log("ARRAAAYYY",  newQuestionArray);
 
       User.updateOne({ username }, {$set: {userQuestionList: newQuestionArray}})
@@ -100,7 +102,7 @@ router.post('/questions', (req, res, next) => {
       return res.json(user.questionsObj);
     })
     .catch(err => {
-      next(err);
+      console.error(err);
     });
     
 });
