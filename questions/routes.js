@@ -61,26 +61,32 @@ router.post('/questions', (req, res, next) => {
         newList.insertLast(question);
       });
 
-      console.log('this is the newList before question was answered:', JSON.stringify(newList, null, 2));
+      // console.log('this is the newList before question was answered:', JSON.stringify(newList, null, 2));
 
       //don't trust users to have answers without whitespace//same case:
       const userAnswer = answer.toLowerCase().trim();
       const correctAnswer = newList.head.value.answer.toLowerCase().trim();
-
+       let correctCount;
+       let incorrectCount;
       //check if correct or incorrect:
       if (userAnswer !== correctAnswer){
+        correctCount = user.questionsObj.correct++;
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead=newList.head.value;
         newList.insertAt(newListHead, 3);
       }
       else if (userAnswer === correctAnswer){
+        incorrectCount = user.questionsObj.incorrect++;
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
         const newListHead=newList.head.value;
         newList.insertLast(newListHead);
       }
+      console.log('this is the count when correct', correctCount);
+      console.log('this is the count when incorrect', incorrectCount);
+
       //adding to head question to the last spot and then deleteing the head
       simple(newList);
-      console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
+      // console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
       let currentNode = newList.head;
       while (currentNode !== null) {
@@ -89,6 +95,8 @@ router.post('/questions', (req, res, next) => {
       }
   
       user.userQuestionList = newQuestionArray;
+      user.questionsObj.correct = correctCount;
+      user.questionsObj.incorrect = incorrectCount;
       // console.log("ARRAAAYYY",  newQuestionArray);
 
       User.updateOne({ username }, {$set: {userQuestionList: newQuestionArray}})
