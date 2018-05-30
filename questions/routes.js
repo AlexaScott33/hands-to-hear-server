@@ -68,15 +68,17 @@ router.post('/questions', (req, res, next) => {
       const correctAnswer = newList.head.value.answer.toLowerCase().trim();
        let correctCount;
        let incorrectCount;
+       console.log('!!!!!', user.questionsObj.correct);
       //check if correct or incorrect:
       if (userAnswer !== correctAnswer){
-        correctCount = user.questionsObj.correct++;
+        correctCount = user.questionsObj.correct + 1;
+        console.log('xxxxxxxxxx', correctCount);
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead=newList.head.value;
         newList.insertAt(newListHead, 3);
       }
       else if (userAnswer === correctAnswer){
-        incorrectCount = user.questionsObj.incorrect++;
+        incorrectCount = user.questionsObj.incorrect + 1;
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
         const newListHead=newList.head.value;
         newList.insertLast(newListHead);
