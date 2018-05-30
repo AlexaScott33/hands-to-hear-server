@@ -39,38 +39,39 @@ router.get('/questions', (req, res, next) => {
 
 
 router.post('/questions', (req, res, next) => {
-  console.log('req.bod=====', req.body);
   const { answer } = req.body;
   console.log(answer);
   
   //NOTE FOR START OF DAY:
   //Need to figure out why not getting anything off req body
 
-  const {username} = req.user;
+  const { username } = req.user;
   
   
-  User.findOne({username})
+  User.findOne({ username })
     .then(user => {
       const newList = new LinkedList();
-      const newQuestionArray=[];
+      const newQuestionArray = [];
       // console.log('firssttt', user);
       
       //insert all the array into the new linkedlist
-      user.userQuestionList.map(question=>{
+      user.userQuestionList.map(question => {
         newList.insertLast(question);
       });
 
+      console.log('this is the newList before question was answered:', JSON.stringify(newList, null, 2));
+
       //don't trust users to have answers without whitespace//same case:
-      const userAnswer=answer.toLowerCase().trim();
-      const correctAnswer=newList.head.value.answer.toLowerCase().trim();
+      const userAnswer = answer.toLowerCase().trim();
+      const correctAnswer = newList.head.value.answer.toLowerCase().trim();
 
       //check if correct or incorrect:
-      if(userAnswer !== correctAnswer){
+      if (userAnswer !== correctAnswer){
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
         const newListHead=newList.head.value;
         newList.insertAt(newListHead, 3);
       }
-      else if(userAnswer === correctAnswer){
+      else if (userAnswer === correctAnswer){
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
         const newListHead=newList.head.value;
         newList.insertLast(newListHead);
@@ -79,8 +80,8 @@ router.post('/questions', (req, res, next) => {
       simple(newList);
       console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
-      let currentNode=newList.head;
-      while(currentNode!==null){
+      let currentNode = newList.head;
+      while (currentNode !== null) {
         newQuestionArray.push(currentNode.value);
         currentNode= currentNode.next;
       }
@@ -88,7 +89,7 @@ router.post('/questions', (req, res, next) => {
       user.userQuestionList= newQuestionArray;
       // console.log("ARRAAAYYY",  newQuestionArray);
 
-      User.updateOne({username}, {$set: {userQuestionList: newQuestionArray}})
+      User.updateOne({ username }, {$set: {userQuestionList: newQuestionArray}})
         .then(result => {
           console.log('updating list');
         });
