@@ -23,7 +23,7 @@ function simple(list) {
   displayFirstQuestion(list);
 
   const firstQues = list.head.value;
-  list.insertLast(firstQues);
+  // list.insertLast(firstQues);
   list.remove(firstQues);
   return list;
 }

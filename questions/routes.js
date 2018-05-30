@@ -19,6 +19,7 @@ router.get('/questions', (req, res, next) => {
 
   User.findOne({username})
     .then(user => {
+      // console.log('this is user', user);
       if (!user.questionsObj.questionHead) {
         user.questionsObj.questionHead = user.userQuestionList[0];
         user.questionsObj.questionNext = user.userQuestionList[1];
@@ -54,7 +55,7 @@ router.post('/questions', (req, res, next) => {
         newList.insertLast(question);
       });
 
-      // console.log('this is the newList before question was answered:', JSON.stringify(newList, null, 2));
+      console.log('this is the newList before question was answered:', JSON.stringify(newList, null, 2));
 
       //don't trust users to have answers without whitespace//same case:
       const userAnswer = answer.toLowerCase().trim();
@@ -81,7 +82,7 @@ router.post('/questions', (req, res, next) => {
       //adding to head question to the last spot and then deleteing the head
       simple(newList);
 
-      // console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
+      console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
       let currentNode = newList.head;
       while (currentNode !== null) {
