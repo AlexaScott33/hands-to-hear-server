@@ -22,9 +22,6 @@ router.get('/questions', (req, res, next) => {
       if (!user.questionsObj.questionHead) {
         user.questionsObj.questionHead = user.userQuestionList[0];
         user.questionsObj.questionNext = user.userQuestionList[1];
-        user.questionsObj.correct=0;
-        user.questionsObj.incorrect=0;
-        console.log('this is firstQues', user.questionsObj.questionHead);
         return res.json(user.questionsObj);
       }
       else{
@@ -40,7 +37,6 @@ router.get('/questions', (req, res, next) => {
 
 router.post('/questions', (req, res, next) => {
   const { answer } = req.body;
-  console.log(answer);
   
   //NOTE FOR START OF DAY:
   //Need to figure out why not getting anything off req body
@@ -50,11 +46,8 @@ router.post('/questions', (req, res, next) => {
   
   User.findOne({ username })
     .then(user => {
-      console.log('this is the user', user);
       const newList = new LinkedList();
       const newQuestionArray = [];
-      // console.log('firssttt', user);
-      
       
       //insert all the array into the new linkedlist
       user.userQuestionList.map(question => {
@@ -66,33 +59,28 @@ router.post('/questions', (req, res, next) => {
       //don't trust users to have answers without whitespace//same case:
       const userAnswer = answer.toLowerCase().trim();
       const correctAnswer = newList.head.value.answer.toLowerCase().trim();
-      
+
       let correctCount = user.questionsObj.correct;
       let incorrectCount = user.questionsObj.incorrect;
       console.log('!!!!!!!!', user.questionsObj.incorrect);
 
-      // console.log('!!!!!', user.questionsObj.correct);
       //check if correct or incorrect:
       if (userAnswer !== correctAnswer){
         incorrectCount = user.questionsObj.incorrect + 1;
-        // correctCount = user.questionsObj.correct;
-        console.log('xxxxxxxxxx', correctCount);
         console.log('!!!WRONG. the answer was not correct so lets move it back one');
-        const newListHead=newList.head.value;
+        const newListHead = newList.head.value;
         newList.insertAt(newListHead, 3);
       }
       else if (userAnswer === correctAnswer){
         correctCount = user.questionsObj.correct + 1;
-        // incorrectCount = user.questionsObj.incorrect;
         console.log('!!!NICE. the answer was correct so lets move it to back of list');
-        const newListHead=newList.head.value;
+        const newListHead = newList.head.value;
         newList.insertLast(newListHead);
       }
-      console.log('this is the count when correct', correctCount);
-      console.log('this is the count when incorrect', incorrectCount);
 
       //adding to head question to the last spot and then deleteing the head
       simple(newList);
+
       // console.log('look here to find where the question went?!', JSON.stringify(newList, null, 2));
       
       let currentNode = newList.head;
@@ -104,28 +92,29 @@ router.post('/questions', (req, res, next) => {
       user.userQuestionList = newQuestionArray;
       user.questionsObj.correct = correctCount;
       user.questionsObj.incorrect = incorrectCount;
-      // console.log("ARRAAAYYY",  newQuestionArray);
 
-      User.updateOne({ username }, {$set: {
-        userQuestionList: newQuestionArray,
-        questionsObj: {
-          questionHead: user.questionsObj.questionHead,
-          correct: correctCount,
-          incorrect: incorrectCount 
-        }
-      }
-      })
+      User.updateOne({ username }, 
+        {
+          $set: {
+            userQuestionList: newQuestionArray,
+            questionsObj: {
+              questionHead: user.questionsObj.questionHead,
+              correct: correctCount,
+              incorrect: incorrectCount 
+            }
+          }
+        })
         .then(result => {
           console.log('updating list');
         });
+
       user.questionsObj.questionHead = user.userQuestionList[0];
       user.questionsObj.questionNext = user.userQuestionList[1];
   
-      // console.log('finaallll', user.questionsObj);
       return res.json(user.questionsObj);
     })
     .catch(err => {
-      console.error(err);
+      next(err);
     });
     
 });
