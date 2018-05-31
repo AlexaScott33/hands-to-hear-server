@@ -59,3 +59,16 @@ https://alex-megan-spaced-repetition.herokuapp.com/
     * Gets user and makes changes to user's questions
     * Users algorithm to determine where in the list the question should be inserted
 
+## Schemas
+
+### Users
+
+<img width="470" alt="screen shot 2018-05-31 at 7 15 29 pm" src="https://user-images.githubusercontent.com/35544816/40813085-16d85470-6507-11e8-8e30-389d3ef78e79.png">
+
+### Questions
+
+<img width="382" alt="screen shot 2018-05-31 at 7 15 45 pm" src="https://user-images.githubusercontent.com/35544816/40813104-2abba53c-6507-11e8-8297-caace2c0dcc9.png">
+
+
+
+
