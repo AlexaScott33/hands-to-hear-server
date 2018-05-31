@@ -93,8 +93,10 @@ router.post('/questions', (req, res, next) => {
       user.userQuestionList = newQuestionArray;
       user.questionsObj.correct = correctCount;
       user.questionsObj.incorrect = incorrectCount;
+      user.questionsObj.questionHead = user.userQuestionList[0];
+      user.questionsObj.questionNext = user.userQuestionList[1];
 
-      User.updateOne({ username }, 
+      return User.updateOne({ username }, 
         {
           $set: {
             userQuestionList: newQuestionArray,
@@ -104,14 +106,14 @@ router.post('/questions', (req, res, next) => {
               incorrect: incorrectCount 
             }
           }
-        })
-        .then(result => {
-          console.log('updating list');
         });
-
-      user.questionsObj.questionHead = user.userQuestionList[0];
-      user.questionsObj.questionNext = user.userQuestionList[1];
-  
+    })
+    .then(()=>{
+      return User.findOne({username});
+    })
+    .then(user => {
+      console.log('this is the newest user', user);
+      console.log('updating list');
       return res.json(user.questionsObj);
     })
     .catch(err => {
