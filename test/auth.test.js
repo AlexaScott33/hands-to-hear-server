@@ -37,7 +37,7 @@ describe('Login Testing', function (){
   });
 
   describe('Hands to Hear /api/login', function () {
-    it.only('Should return a valid auth token', function () {
+    it('Should return a valid auth token', function () {
       return chai.request(app)
         .post('/api/users')
         .send({ username, password })
