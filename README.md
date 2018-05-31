@@ -19,9 +19,16 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 ### Back-End
 * Node
 * Express
+* MongoDB
+* Mongoose
+* Passport
+* Bcrypt
 
-### Deployment
+### Testing and Deployment
+* Mocha
+* Chai
 * Heroku
+* mLab
 * Netlify
 
 ## Running Locally
