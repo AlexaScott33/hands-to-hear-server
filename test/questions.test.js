@@ -88,7 +88,6 @@ describe('Questions Testing', function(){
         })
         .then(data => {
           //why does this update sometimes and other times, it updates after we look for the user?
-          console.log('data', data.userQuestionList[0]);
           expect(body.questionHead.answer).to.equal(data.userQuestionList[0].answer);
           expect(body.questionHead.memVal).to.equal(data.userQuestionList[0].memVal);
           expect(data.userQuestionList[1].answer).to.equal('a');
@@ -150,7 +149,6 @@ describe('Questions Testing', function(){
         .send({answer})
         .then(function (res) {
           body = res.body;
-          console.log('this is body', body);
           expect(res).to.be.json;
           expect(body).to.be.a('object');
           expect(body).to.include.keys('questionHead', 'correct', 'incorrect');
@@ -162,7 +160,6 @@ describe('Questions Testing', function(){
         })
         .then(data => {
           //why does this update sometimes and other times, it updates after we look for the user?
-          console.log('data', data.userQuestionList[0]);
           expect(body.questionHead.answer).to.equal(data.userQuestionList[0].answer);
           expect(body.questionHead.memVal).to.equal(data.userQuestionList[0].memVal);
           expect(data.userQuestionList[1].answer).to.equal('a');
