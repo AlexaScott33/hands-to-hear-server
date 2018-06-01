@@ -64,7 +64,7 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 * POST
     * Requires Authentication
     * Gets user and makes changes to user's questions
-    * Users algorithm to determine where in the list the question should be inserted
+    * Uses algorithm to determine where in the list the question should be inserted
 
 ## Schemas
 
