@@ -10,10 +10,8 @@ questions.map(question => {
   QuestionList.insertLast(question);
 });
 
-// console.log(JSON.stringify(QuestionList, null, 2));
 
 function displayFirstQuestion(list) {
-  // console.log(list.head.value);
   return list.head.value;
 }
 
@@ -43,7 +41,6 @@ function displayAndRemove(list) {
 
 //answer ---> 
 function better(list, answer) {
-  console.log('this is the first question:');
   displayFirstQuestion(list);
 
   for (let i = 0; i < questions.length; i++) {

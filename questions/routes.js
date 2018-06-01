@@ -112,8 +112,6 @@ router.post('/questions', (req, res, next) => {
       return User.findOne({username});
     })
     .then(user => {
-      console.log('this is the newest user', user);
-      console.log('updating list');
       return res.json(user.questionsObj);
     })
     .catch(err => {
