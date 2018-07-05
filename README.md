@@ -1,6 +1,6 @@
 # Hands to Hear
 
-[Hands to Hear](https://compassionate-fermi-44db9e.netlify.com/) is an app designed using a Spaced Repetition algorithm to help you learn basic ASL (American Sign Language).
+[Hands to Hear](https://hands-to-hear.netlify.com/) is an app designed using a Spaced Repetition algorithm to help you learn basic ASL (American Sign Language).
 
 ## View the Frontend code here:
 https://github.com/thinkful-ei19/Alexa-Megan-Spaced-Repetition-Client
