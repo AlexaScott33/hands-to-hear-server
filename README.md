@@ -49,6 +49,8 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 
 * POST
     * Register new user
+        requires: username, password
+        responds with username, password
 
 ### Auth (/login)
 
