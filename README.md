@@ -55,21 +55,21 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 ### Auth (/login)
 
 * POST
-    * Login existing user
-        requires: username, password
+    * Login existing user <br />
+        requires: username, password <br />
         responds with authToken
 
 ### Questions (/questions)
 
 * GET
-    * Gets a specific user's first question from the list
-        requires: username
+    * Gets a specific user's first question from the list <br />
+        requires: username <br />
         responds with first question in user's list
 
 * POST
     * Gets user and makes changes to user's questions list
-    * Uses an algorithm where each question has a certain M value to determine where in the list question should be inserted
-        requires: username, answer (in body)
+    * Uses an algorithm where each question has a certain M value to determine where in the list question should be inserted <br />
+        requires: username, answer (in body) <br />
         responds with new first question in user's list
 
 ## Schemas
