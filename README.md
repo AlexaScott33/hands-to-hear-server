@@ -33,7 +33,7 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 
 ## Running Locally
 
-* Clone this repository: `git clone https://github.com/thinkful-ei19/Alexa-Megan-Spaced-Repetition-App-Server.git`
+* Clone this repository: `git clone https://github.com/AlexaScott33/hands-to-hear-server.git`
 
 * Move into the project directory: `cd Alexa-Megan-Spaced-Repetition-App-Server/`
 * Install the dependencies: `npm install`
