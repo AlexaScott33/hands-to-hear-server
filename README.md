@@ -35,7 +35,7 @@ https://alex-megan-spaced-repetition.herokuapp.com/
 
 * Clone this repository: `git clone https://github.com/AlexaScott33/hands-to-hear-server.git`
 
-* Move into the project directory: `cd Alexa-Megan-Spaced-Repetition-App-Server/`
+* Move into the project directory: `cd hands-to-hear-server/`
 * Install the dependencies: `npm install`
 * Run the development task: `npm start`
     * Starts a server running at http://localhost:8080
